@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "env": {
+    "DATABASE_URL": "@asperitas-database-url"
+  },
+  "builds": [
+    { "src": "client/package.json", "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build"
+      }
+    },
+    { "src": "server/index.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/api/?(.*)", "dest": "/server"},
+    { "src": "/static/(.*)", "dest": "/client/static/$1" },
+    { "src": "/.*", "dest": "/client" }
+  ]
+}
